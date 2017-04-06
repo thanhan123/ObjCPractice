@@ -13,7 +13,19 @@
 		D10F43E01E95CF1200821ADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D10F43DE1E95CF1200821ADE /* Main.storyboard */; };
 		D10F43E21E95CF1200821ADE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D10F43E11E95CF1200821ADE /* Assets.xcassets */; };
 		D10F43E51E95CF1200821ADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D10F43E31E95CF1200821ADE /* LaunchScreen.storyboard */; };
+		D10F43F31E95F87200821ADE /* ObjCPraceticeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D10F43F21E95F87200821ADE /* ObjCPraceticeTests.m */; };
+		D10F43FB1E95F89600821ADE /* TestObjcPractice.m in Sources */ = {isa = PBXBuildFile; fileRef = D10F43FA1E95F89600821ADE /* TestObjcPractice.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D10F43F51E95F87200821ADE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D10F43CA1E95CF1200821ADE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D10F43D11E95CF1200821ADE;
+			remoteInfo = ObjCPracetice;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		D10F43D21E95CF1200821ADE /* ObjCPracetice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjCPracetice.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,10 +38,21 @@
 		D10F43E11E95CF1200821ADE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D10F43E41E95CF1200821ADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D10F43E61E95CF1200821ADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D10F43F01E95F87200821ADE /* ObjCPraceticeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjCPraceticeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D10F43F21E95F87200821ADE /* ObjCPraceticeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCPraceticeTests.m; sourceTree = "<group>"; };
+		D10F43F41E95F87200821ADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D10F43FA1E95F89600821ADE /* TestObjcPractice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestObjcPractice.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		D10F43CF1E95CF1200821ADE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D10F43ED1E95F87200821ADE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -43,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				D10F43D41E95CF1200821ADE /* ObjCPracetice */,
+				D10F43F11E95F87200821ADE /* ObjCPraceticeTests */,
 				D10F43D31E95CF1200821ADE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				D10F43D21E95CF1200821ADE /* ObjCPracetice.app */,
+				D10F43F01E95F87200821ADE /* ObjCPraceticeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,6 +104,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D10F43F11E95F87200821ADE /* ObjCPraceticeTests */ = {
+			isa = PBXGroup;
+			children = (
+				D10F43FA1E95F89600821ADE /* TestObjcPractice.m */,
+				D10F43F21E95F87200821ADE /* ObjCPraceticeTests.m */,
+				D10F43F41E95F87200821ADE /* Info.plist */,
+			);
+			path = ObjCPraceticeTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -99,6 +134,24 @@
 			productReference = D10F43D21E95CF1200821ADE /* ObjCPracetice.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D10F43EF1E95F87200821ADE /* ObjCPraceticeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D10F43F71E95F87200821ADE /* Build configuration list for PBXNativeTarget "ObjCPraceticeTests" */;
+			buildPhases = (
+				D10F43EC1E95F87200821ADE /* Sources */,
+				D10F43ED1E95F87200821ADE /* Frameworks */,
+				D10F43EE1E95F87200821ADE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D10F43F61E95F87200821ADE /* PBXTargetDependency */,
+			);
+			name = ObjCPraceticeTests;
+			productName = ObjCPraceticeTests;
+			productReference = D10F43F01E95F87200821ADE /* ObjCPraceticeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -111,6 +164,11 @@
 					D10F43D11E95CF1200821ADE = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
+					};
+					D10F43EF1E95F87200821ADE = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = D10F43D11E95CF1200821ADE;
 					};
 				};
 			};
@@ -128,6 +186,7 @@
 			projectRoot = "";
 			targets = (
 				D10F43D11E95CF1200821ADE /* ObjCPracetice */,
+				D10F43EF1E95F87200821ADE /* ObjCPraceticeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -140,6 +199,13 @@
 				D10F43E51E95CF1200821ADE /* LaunchScreen.storyboard in Resources */,
 				D10F43E21E95CF1200821ADE /* Assets.xcassets in Resources */,
 				D10F43E01E95CF1200821ADE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D10F43EE1E95F87200821ADE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,7 +222,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D10F43EC1E95F87200821ADE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D10F43FB1E95F89600821ADE /* TestObjcPractice.m in Sources */,
+				D10F43F31E95F87200821ADE /* ObjCPraceticeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D10F43F61E95F87200821ADE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D10F43D11E95CF1200821ADE /* ObjCPracetice */;
+			targetProxy = D10F43F51E95F87200821ADE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D10F43DE1E95CF1200821ADE /* Main.storyboard */ = {
@@ -290,6 +373,30 @@
 			};
 			name = Release;
 		};
+		D10F43F81E95F87200821ADE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ObjCPraceticeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = an.ObjCPraceticeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ObjCPracetice.app/ObjCPracetice";
+			};
+			name = Debug;
+		};
+		D10F43F91E95F87200821ADE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ObjCPraceticeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = an.ObjCPraceticeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ObjCPracetice.app/ObjCPracetice";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -307,6 +414,14 @@
 			buildConfigurations = (
 				D10F43EA1E95CF1200821ADE /* Debug */,
 				D10F43EB1E95CF1200821ADE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D10F43F71E95F87200821ADE /* Build configuration list for PBXNativeTarget "ObjCPraceticeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D10F43F81E95F87200821ADE /* Debug */,
+				D10F43F91E95F87200821ADE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
