@@ -14,9 +14,13 @@
 @end
 
 @interface ViewController (Test)
+
 -(NSInteger)solutionPairsOfIntersectingDiscs:(NSArray*)numberArray;
 -(NSInteger)numberOfPalindromicSlices:(NSString*)string;
 NSMutableArray * solutionIncreaseCounter(int N, NSMutableArray *A);
+NSMutableArray * solutionFindString(NSString *A);
+NSString * solutionBitwiseXorAllNumberBetween(NSInteger min, NSInteger max);
+    
 @end
 
 @implementation ObjCPraceticeTests
@@ -51,6 +55,14 @@ NSMutableArray * solutionIncreaseCounter(int N, NSMutableArray *A);
         }
     }
     XCTAssertEqual(isEqual, YES, @"testSolutionNumberOfPalindromicSlices is not passed");
+}
+
+- (void)testSolutionFindString{
+    NSMutableArray *result = solutionFindString(@"1123");
+}
+
+- (void)testSolutionBitwiseXorAllNumberBetween{
+    NSString *result = solutionBitwiseXorAllNumberBetween(5, 8);
 }
 
 - (void)tearDown {
