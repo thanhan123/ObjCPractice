@@ -20,7 +20,7 @@
 NSMutableArray * solutionIncreaseCounter(int N, NSMutableArray *A);
 NSMutableArray * solutionFindString(NSString *A);
 NSString * solutionBitwiseXorAllNumberBetween(NSInteger min, NSInteger max);
-    
+NSMutableArray * solutionFindCoordinatesIntersection(NSInteger x, NSInteger y, NSInteger x2, NSInteger y2, NSInteger x3, NSInteger y3, NSInteger x4, NSInteger y4);
 @end
 
 @implementation ObjCPraceticeTests
@@ -45,9 +45,9 @@ NSString * solutionBitwiseXorAllNumberBetween(NSInteger min, NSInteger max);
 }
 
 - (void)testSolutionIncreaseCounter{
-    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:@[@(3),@(4),@(4),@(6),@(1),@(4),@(4)]];
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:@[@(3),@(4),@(4),@(6),@(1),@(4),@(4),@(6)]];
     NSMutableArray *result = solutionIncreaseCounter(5, array);
-    NSMutableArray *expectedResult = [[NSMutableArray alloc] initWithArray:@[@(3),@(2),@(2),@(4),@(2)]];
+    NSMutableArray *expectedResult = [[NSMutableArray alloc] initWithArray:@[@(4),@(4),@(4),@(4),@(4)]];
     BOOL isEqual = YES;
     for (NSInteger i = 0 ; i < 5; i++) {
         if ([result[i] integerValue] != [expectedResult[i] integerValue]) {
@@ -63,6 +63,10 @@ NSString * solutionBitwiseXorAllNumberBetween(NSInteger min, NSInteger max);
 
 - (void)testSolutionBitwiseXorAllNumberBetween{
     NSString *result = solutionBitwiseXorAllNumberBetween(5, 8);
+}
+
+- (void)testSolutionFindCoordinatesIntersection{
+    NSMutableArray *result = solutionFindCoordinatesIntersection(1, 1, 4, 7, 4, 2, 6, 4);
 }
 
 - (void)tearDown {

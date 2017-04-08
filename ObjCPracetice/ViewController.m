@@ -19,13 +19,50 @@
     
 //    [self solution];
 }
+// ---------------------------
+
+
 
 // ---------------------------
 
 NSMutableArray * solutionFindCoordinatesIntersection(NSInteger x, NSInteger y, NSInteger x2, NSInteger y2, NSInteger x3, NSInteger y3, NSInteger x4, NSInteger y4){
     NSMutableArray *result = [NSMutableArray new];
     
-//    NSMutableArray *listPositionIntersection = [[NSMutableArray alloc] initWithArray:@[@[@(x),@(y3)], @[@(x),@(y4)], @[@(x2),@(y3)], @[@(x2),@(y4)], @[@(x3),@(y)], @[@(x3),@(y4)], @[@(x4),@(y)], @[@(x4),@(y2)]] ];
+    CGRect rect = CGRectMake(x, y, labs(x2 - x), labs(y2 - y));
+    CGRect rect2 = CGRectMake(x3, y3, labs(x4 - x3), labs(y4 - y3));
+    
+    NSMutableArray *listPositionIntersection = [[NSMutableArray alloc] initWithArray:@[@[@(x),@(y3)], @[@(x),@(y4)], @[@(x2),@(y3)], @[@(x2),@(y4)], @[@(x3),@(y)], @[@(x3),@(y2)], @[@(x4),@(y)], @[@(x4),@(y2)]] ];
+    
+    if (CGRectIntersectsRect(rect, rect2)) {
+        CGRect rectResult = CGRectIntersection(rect, rect2);
+        
+        CGPoint intersection = rectResult.origin;
+        CGPoint intersection2 = CGPointMake(rectResult.origin.x + rectResult.size.width, rectResult.origin.y);
+        CGPoint intersection3 = CGPointMake(rectResult.origin.x + rectResult.size.width, rectResult.origin.y + rectResult.size.height);
+        CGPoint intersection4 = CGPointMake(rectResult.origin.x, rectResult.origin.y + rectResult.size.height);
+        
+        [result addObject:@[@(intersection.x),@(intersection.y)]];
+        [result addObject:@[@(intersection2.x),@(intersection2.y)]];
+        [result addObject:@[@(intersection3.x),@(intersection3.y)]];
+        [result addObject:@[@(intersection4.x),@(intersection4.y)]];
+        
+        for (int i = 3; i >= 0; i--) {
+            BOOL isIntersect = NO;
+            CGPoint intersectPoint = CGPointMake([result[i][0] integerValue], [result[i][1] integerValue]);
+            for (int j = 0; j < listPositionIntersection.count; j++) {
+                CGPoint intersectPoint2 = CGPointMake([listPositionIntersection[j][0] integerValue], [listPositionIntersection[j][1] integerValue]);
+                if (intersectPoint.x == intersectPoint2.x && intersectPoint.y == intersectPoint2.y) {
+                    isIntersect = YES;
+                    break;
+                }
+            }
+            if (!isIntersect) {
+                [result removeObjectAtIndex:i];
+            }
+        }
+    }
+    
+    NSLog(@"solutionFindCoordinatesIntersection: %@", result);
     
     return result;
 }
@@ -88,24 +125,25 @@ void recursionToFindStringWithPreviousResult(NSMutableArray *previousResult, NSS
 
 // ---------------------------
 
-NSMutableArray * solutionIncreaseCounter(int N, NSMutableArray *A) { // 100% correct and 40% performance
+NSMutableArray * solutionIncreaseCounter(int N, NSMutableArray *A) { // 100% correct and 100% performance
+    NSInteger MAX = 0, B = 0, CI;
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < N; i++) {
         [result addObject:@(0)];
     }
     
-    NSInteger maxValue = 0;
-    for (NSInteger i = 0; i < A.count; i++) {
-        if ([A[i] integerValue] <= N) {
-            NSInteger modifyIndex = [A[i] integerValue] - 1;
-            result[modifyIndex] = @([result[modifyIndex] integerValue] + 1);
-            maxValue = maxValue < [result[modifyIndex] integerValue] ? [result[modifyIndex] integerValue] : maxValue;
-        } else {
-            for(NSInteger j = 0; j < N; j++){
-                result[j] = @(maxValue);
-            }
+    for(int i = 0; i < A.count; i++) {
+        CI = [A[i] integerValue] - 1;
+        if ([A[i] integerValue] <= N && [A[i] integerValue] >= 1) {
+            result[CI] = @(MAX(B,[result[CI] integerValue]) + 1);
+            MAX = MAX(MAX,[result[CI] integerValue]);
+        } else if([A[i] integerValue] == N + 1) {
+            B = MAX;
         }
     }
+    
+    for(int i = 0; i < result.count; i++)
+        result[i] = @(MAX([result[i] integerValue],B));
     
     return result;
 }
