@@ -21,6 +21,9 @@ NSMutableArray * solutionIncreaseCounter(int N, NSMutableArray *A);
 NSMutableArray * solutionFindString(NSString *A);
 NSString * solutionBitwiseXorAllNumberBetween(NSInteger min, NSInteger max);
 NSMutableArray * solutionFindCoordinatesIntersection(NSInteger x, NSInteger y, NSInteger x2, NSInteger y2, NSInteger x3, NSInteger y3, NSInteger x4, NSInteger y4);
+
+NSInteger solutionEquilibriumIndex(NSMutableArray *A);
+NSInteger solution(int A, int B, int N) ;
 @end
 
 @implementation ObjCPraceticeTests
@@ -30,7 +33,20 @@ NSMutableArray * solutionFindCoordinatesIntersection(NSInteger x, NSInteger y, N
     _vcToTest = [[ViewController alloc] init];
 }
 
-- (void)testSolution{
+-(void)testSolutionRakuten{
+    NSInteger result = solution(3, 4, 2);
+    NSInteger expectedResult = 7;
+    XCTAssertEqual(expectedResult, result, @"testSolutionRakuten is not passed");
+}
+
+- (void)testSolutionEquilibriumIndex{
+    NSMutableArray *numberArray = [[NSMutableArray alloc] initWithArray:@[@(-1), @(3), @(-4), @(5), @(1), @(-6), @(2), @(1)]];
+    NSInteger result = solutionEquilibriumIndex(numberArray);
+    NSInteger expectedResult = 1;
+    XCTAssertEqual(expectedResult, result, @"testSolutionEquilibriumIndex is not passed");
+}
+
+- (void)testSolutionPairsOfIntersectingDiscs{
     NSArray *numberArray = @[@(1), @(5), @(2), @(1), @(4), @(0)];
     NSInteger result = [_vcToTest solutionPairsOfIntersectingDiscs:numberArray];
     NSInteger expectedResult = 11;

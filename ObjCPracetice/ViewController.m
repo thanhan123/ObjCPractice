@@ -21,6 +21,70 @@
 }
 // ---------------------------
 
+NSInteger solution(int A, int B, int N) {
+    NSLog(@"%i", fib(5));
+    
+    NSInteger result = 0;
+    
+    NSInteger divided = 1000000007;
+    
+    result = (fib(N)*(B%divided) + fib(N - 1)*(A%divided))%divided;
+    
+    return result;
+}
+
+int fib(int num){
+    if (num == 0) {
+        return 0;
+    }
+    if (num == 1) {
+        return 1;
+    }
+    return fib(num - 1) + fib(num - 2);
+}
+
+NSInteger solutionEquilibriumIndex(NSMutableArray *A) {
+    NSMutableArray *result = [NSMutableArray new];
+    NSMutableArray *arrayCounted = countArray(A);
+    for (NSInteger i = 0; i < A.count; i++) {
+        NSInteger leftValue = 0;
+        NSInteger rightValue = 0;
+        if (i == 0) {
+            rightValue = countSegment(arrayCounted, i + 1, A.count - 1);
+        } else if (i == A.count - 1) {
+            leftValue = countSegment(arrayCounted, 0, A.count - 2);
+        } else {
+            leftValue = countSegment(arrayCounted, 0, i - 1);
+            rightValue = countSegment(arrayCounted, i + 1, A.count - 1);
+        }
+        if (leftValue == rightValue) {
+            [result addObject:@(i)];
+        }
+    }
+    
+    if (result.count > 0) {
+        return [[result firstObject] integerValue];
+    } else {
+        return -1;
+    }
+}
+
+NSMutableArray * countArray(NSMutableArray *A){
+    NSMutableArray *result = [NSMutableArray new];
+    for (NSInteger i = 0; i < A.count + 1; i++) {
+        [result addObject:@(0)];
+    }
+    
+    for (NSInteger i = 1; i < A.count + 1; i++) {
+        result[i] = @([result[i - 1] integerValue] + [A[i - 1] integerValue]);
+    }
+    
+    return result;
+}
+
+NSInteger countSegment(NSMutableArray *A, NSInteger from, NSInteger to){
+    return [A[to + 1] integerValue] - [A[from] integerValue];
+}
 
 
 // ---------------------------
@@ -188,18 +252,51 @@ BOOL isPalindrome(NSString *string) {
 -(NSInteger)solutionPairsOfIntersectingDiscs:(NSArray*)numberArray{ // 100% correct and 25% performance
     NSInteger pairsOfIntersectingDiscs = 0;
 
-    NSInteger i = 0;
-    while (i < numberArray.count) {
-        NSInteger maxValueOfI = i + [numberArray[i] integerValue];
-        for (NSInteger j = i + 1; j < numberArray.count; j++) {
-            NSInteger minValueOfJ = j - [numberArray[j] integerValue];
-            if (maxValueOfI >= minValueOfJ) {
-                pairsOfIntersectingDiscs ++;
+//    NSInteger i = 0;
+//    while (i < numberArray.count) {
+//        NSInteger maxValueOfI = i + [numberArray[i] integerValue];
+//        for (NSInteger j = i + 1; j < numberArray.count; j++) {
+//            NSInteger minValueOfJ = j - [numberArray[j] integerValue];
+//            if (maxValueOfI >= minValueOfJ) {
+//                pairsOfIntersectingDiscs ++;
+//            }
+//        }
+//        i++;
+//    }
+    
+    NSMutableArray *rangeArray = [NSMutableArray new];
+    for (NSInteger i = 0; i < numberArray.count; i++) {
+        [rangeArray addObject:@[@(i - [numberArray[i] integerValue]), @(i)]];
+        [rangeArray addObject:@[@(i + [numberArray[i] integerValue]), @(i)]];
+    }
+    NSMutableArray *rangeArraySorted = [rangeArray mutableCopy];
+    [rangeArraySorted sortUsingComparator:^NSComparisonResult(NSArray* obj1, NSArray* obj2) {
+        return [obj1[0] compare:obj2[0]];
+    }];
+    
+    NSLog(@"rangeArraySorted %@", rangeArraySorted);
+    
+    NSMutableArray *resultArray = [NSMutableArray new];
+    for (NSInteger i = 0; i < numberArray.count; i++) {
+        [resultArray addObject:[NSMutableArray new]];
+    }
+    
+    for (NSInteger i = 0; i < numberArray.count; i++) {
+        NSMutableArray *obj = rangeArray[i*2 + 1];
+        NSInteger index = [rangeArraySorted indexOfObject:@[@([obj[0] integerValue]),@([obj[1] integerValue])]];
+        for (NSInteger j = 0; j < index; j++) {
+            NSMutableArray *obj2 = rangeArraySorted[j];
+            if ([obj2[1] integerValue] > [obj[1] integerValue]) {
+                NSMutableArray *obj3 = resultArray[[obj[1] integerValue]];
+                if (![obj3 containsObject:@([obj2[1] integerValue])]) {
+                    [obj3 addObject:@([obj2[1] integerValue])];
+                    pairsOfIntersectingDiscs++;
+                }
+                
             }
         }
-        i++;
     }
-
+    
     if (pairsOfIntersectingDiscs > 10000000) {
         return -1;
     }
