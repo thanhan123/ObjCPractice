@@ -21,16 +21,47 @@
 }
 // ---------------------------
 
-NSInteger solution(int A, int B, int N) {
-    NSLog(@"%i", fib(5));
+NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A){ // not right
+    NSInteger result = -1;
     
-    NSInteger result = 0;
+    NSMutableArray *B = [NSMutableArray new];
+    for (NSInteger i = 0; i < A.count; i++) {
+        [B addObject:@[@([A[i] integerValue]),@(i)]];
+    }
     
-    NSInteger divided = 1000000007;
+    [B sortUsingComparator:^NSComparisonResult(NSArray *  _Nonnull obj1, NSArray *  _Nonnull obj2) {
+        NSNumber *value1 = obj1[0];
+        NSNumber *value2 = obj2[0];
+        return [value1 compare:value2];
+    }];
     
-    result = (fib(N)*(B%divided) + fib(N - 1)*(A%divided))%divided;
+    for (NSInteger i = 0; i < B.count - 1; i++) {
+        NSInteger value1 = [B[i][0] integerValue];
+        NSInteger maxValueForI = value1 + 1;
+        for (NSInteger j = i + 1; j < B.count; j++) {
+            NSInteger value2 = [B[j][0] integerValue];
+            if (value2 > value1 && (maxValueForI == value1 + 1 || value2 <= maxValueForI)) {
+                maxValueForI = value2;
+                
+                NSLog(@"Pair adjacent: %li - %li",[B[i][1] integerValue], [B[j][1] integerValue]);
+                
+                result = result < labs([B[i][1] integerValue] - [B[j][1] integerValue]) ? labs([B[i][1] integerValue] - [B[j][1] integerValue]) : result;
+                
+                if (value2 == value1 + 1) {
+                    break;
+                }
+            }
+        }
+    }
     
     return result;
+}
+
+// ---------------------------
+
+NSInteger solutionRakuten(int A, int B, int N) {
+    NSInteger divided = 1000000007;
+    return (fib(N)*(B%divided) + fib(N - 1)*(A%divided))%divided;
 }
 
 int fib(int num){

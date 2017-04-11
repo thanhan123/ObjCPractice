@@ -23,7 +23,9 @@ NSString * solutionBitwiseXorAllNumberBetween(NSInteger min, NSInteger max);
 NSMutableArray * solutionFindCoordinatesIntersection(NSInteger x, NSInteger y, NSInteger x2, NSInteger y2, NSInteger x3, NSInteger y3, NSInteger x4, NSInteger y4);
 
 NSInteger solutionEquilibriumIndex(NSMutableArray *A);
-NSInteger solution(int A, int B, int N) ;
+NSInteger solutionRakuten(int A, int B, int N) ;
+
+NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A);
 @end
 
 @implementation ObjCPraceticeTests
@@ -33,8 +35,15 @@ NSInteger solution(int A, int B, int N) ;
     _vcToTest = [[ViewController alloc] init];
 }
 
+-(void)testSolutionMaximumAdjacentDistance{
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:@[@(0), @(3), @(3), @(7), @(5), @(3), @(11), @(1)]];
+    NSInteger result = solutionMaximumAdjacentDistance(array);
+    NSInteger expectedResult = 7;
+    XCTAssertEqual(expectedResult, result, @"testSolutionRakuten is not passed");
+}
+
 -(void)testSolutionRakuten{
-    NSInteger result = solution(3, 4, 2);
+    NSInteger result = solutionRakuten(3, 4, 2);
     NSInteger expectedResult = 7;
     XCTAssertEqual(expectedResult, result, @"testSolutionRakuten is not passed");
 }
