@@ -21,7 +21,7 @@
 }
 // ---------------------------
 
-NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A){ // not right
+NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A){
     NSInteger result = -1;
     
     NSMutableArray *B = [NSMutableArray new];
