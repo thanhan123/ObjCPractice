@@ -21,6 +21,29 @@
 }
 // ---------------------------
 
+NSInteger solutionFindLeader(NSMutableArray *A){
+    NSInteger result = -1;
+    
+    [A sortUsingComparator:^NSComparisonResult(NSNumber *  _Nonnull obj1, NSNumber *  _Nonnull obj2) {
+        return [obj1 compare:obj2];
+    }];
+    
+    NSInteger countTime = 1;
+    for (NSInteger i = 1; i < A.count; i++) {
+        if ([A[i] integerValue] == [A[i-1] integerValue]) {
+            countTime++;
+            if (countTime > A.count / 2) {
+                result = [A[i] integerValue];
+                break;
+            }
+        } else {
+            countTime = 1;
+        }
+    }
+    
+    return result;
+}
+
 NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A){
     NSInteger result = -1;
     

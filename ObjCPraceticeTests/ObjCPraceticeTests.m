@@ -26,6 +26,7 @@ NSInteger solutionEquilibriumIndex(NSMutableArray *A);
 NSInteger solutionRakuten(int A, int B, int N) ;
 
 NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A);
+NSInteger solutionFindLeader(NSMutableArray *A);
 @end
 
 @implementation ObjCPraceticeTests
@@ -35,11 +36,18 @@ NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A);
     _vcToTest = [[ViewController alloc] init];
 }
 
+-(void)testSolutionFindLeader{
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:@[@(6), @(8), @(4), @(6), @(8), @(6), @(6)]];
+    NSInteger result = solutionFindLeader(array);
+    NSInteger expectedResult = 6;
+    XCTAssertEqual(expectedResult, result, @"testSolutionFindLeader is not passed");
+}
+
 -(void)testSolutionMaximumAdjacentDistance{
     NSMutableArray *array = [[NSMutableArray alloc] initWithArray:@[@(0), @(3), @(3), @(7), @(5), @(3), @(11), @(1), @(2)]];
     NSInteger result = solutionMaximumAdjacentDistance(array);
     NSInteger expectedResult = 7;
-    XCTAssertEqual(expectedResult, result, @"testSolutionRakuten is not passed");
+    XCTAssertEqual(expectedResult, result, @"testSolutionMaximumAdjacentDistance is not passed");
 }
 
 -(void)testSolutionRakuten{
