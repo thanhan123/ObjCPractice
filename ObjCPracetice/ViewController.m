@@ -21,6 +21,16 @@
 }
 // ---------------------------
 
+NSInteger solutionFindMaximumSlice(NSMutableArray *A){
+    NSInteger result = 0;
+    
+    
+    
+    return result;
+}
+
+// ---------------------------
+
 NSInteger solutionFindLeader(NSMutableArray *A){
     NSInteger result = -1;
     
