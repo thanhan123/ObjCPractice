@@ -36,7 +36,7 @@ NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A);
 }
 
 -(void)testSolutionMaximumAdjacentDistance{
-    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:@[@(0), @(3), @(3), @(7), @(5), @(3), @(11), @(1)]];
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:@[@(0), @(3), @(3), @(7), @(5), @(3), @(11), @(1), @(2)]];
     NSInteger result = solutionMaximumAdjacentDistance(array);
     NSInteger expectedResult = 7;
     XCTAssertEqual(expectedResult, result, @"testSolutionRakuten is not passed");

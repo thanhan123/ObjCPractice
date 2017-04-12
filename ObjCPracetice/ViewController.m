@@ -37,19 +37,15 @@ NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A){ // not right
     
     for (NSInteger i = 0; i < B.count - 1; i++) {
         NSInteger value1 = [B[i][0] integerValue];
-        NSInteger maxValueForI = value1 + 1;
+        NSInteger maxValueForI = value1;
         for (NSInteger j = i + 1; j < B.count; j++) {
             NSInteger value2 = [B[j][0] integerValue];
-            if (value2 > value1 && (maxValueForI == value1 + 1 || value2 <= maxValueForI)) {
+            if (value2 > value1 && (maxValueForI == value1 || value2 <= maxValueForI)) {
                 maxValueForI = value2;
                 
                 NSLog(@"Pair adjacent: %li - %li",[B[i][1] integerValue], [B[j][1] integerValue]);
                 
                 result = result < labs([B[i][1] integerValue] - [B[j][1] integerValue]) ? labs([B[i][1] integerValue] - [B[j][1] integerValue]) : result;
-                
-                if (value2 == value1 + 1) {
-                    break;
-                }
             }
         }
     }
