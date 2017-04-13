@@ -21,12 +21,43 @@
 }
 // ---------------------------
 
-NSInteger solutionFindMaximumSlice(NSMutableArray *A){
-    NSInteger result = 0;
+NSMutableArray * solutionFindMinimalAfterQuery(NSString *S, NSMutableArray *P, NSMutableArray *Q) {
+    NSMutableArray *result = [NSMutableArray new];
     
+    NSMutableArray *SNumber = [NSMutableArray new];
+    for (NSInteger i = 0; i < S.length; i++) {
+        if ([S characterAtIndex:i] == 'A') {
+            [SNumber addObject:@(1)];
+        } else if ([S characterAtIndex:i] == 'C') {
+            [SNumber addObject:@(2)];
+        } else if ([S characterAtIndex:i] == 'G') {
+            [SNumber addObject:@(3)];
+        } else {
+            [SNumber addObject:@(4)];
+        }
+    }
     
+    for (NSInteger i = 0; i < P.count; i++) {
+        NSMutableArray *subArray = [[NSMutableArray alloc] initWithArray:[SNumber subarrayWithRange:NSMakeRange([P[i] integerValue], [Q[i] integerValue] - [P[i] integerValue] + 1 )]];
+        [subArray sortUsingComparator:^NSComparisonResult(NSNumber *  _Nonnull obj1, NSNumber *  _Nonnull obj2) {
+            return [obj1 compare:obj2];
+        }];
+        [result addObject:@([subArray[0] integerValue])];
+    }
     
     return result;
+}
+
+// ---------------------------
+
+NSInteger solutionFindMaximumSlice(NSMutableArray *A){
+    NSInteger max_ending = 0, max_slice = 0;
+    for(NSNumber *a in A){
+        max_ending = MAX(0, max_ending + [a integerValue]);
+        max_slice = MAX(max_slice, max_ending);
+    }
+    
+    return max_slice;
 }
 
 // ---------------------------

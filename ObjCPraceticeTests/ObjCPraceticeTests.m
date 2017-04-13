@@ -27,6 +27,8 @@ NSInteger solutionRakuten(int A, int B, int N) ;
 
 NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A);
 NSInteger solutionFindLeader(NSMutableArray *A);
+NSInteger solutionFindMaximumSlice(NSMutableArray *A);
+NSMutableArray * solutionFindMinimalAfterQuery(NSString *S, NSMutableArray *P, NSMutableArray *Q);
 @end
 
 @implementation ObjCPraceticeTests
@@ -34,6 +36,22 @@ NSInteger solutionFindLeader(NSMutableArray *A);
 - (void)setUp {
     [super setUp];
     _vcToTest = [[ViewController alloc] init];
+}
+
+-(void)testSolutionFindMinimalAfterQuery{
+    NSMutableArray *P = [[NSMutableArray alloc] initWithArray:@[@(2), @(5), @(0)]];
+    NSMutableArray *Q = [[NSMutableArray alloc] initWithArray:@[@(4), @(5), @(6)]];
+    
+    NSMutableArray *result = solutionFindMinimalAfterQuery(@"CAGCCTA", P, Q);
+//    NSInteger expectedResult = 8;
+//    XCTAssertEqual(expectedResult, result, @"testSolutionFindLeader is not passed");
+}
+
+-(void)testSolutionFindMaximumSlice{
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:@[@(-5), @(-7), @(3), @(5), @(-2), @(-4), @(-1)]];
+    NSInteger result = solutionFindMaximumSlice(array);
+    NSInteger expectedResult = 8;
+    XCTAssertEqual(expectedResult, result, @"testSolutionFindLeader is not passed");
 }
 
 -(void)testSolutionFindLeader{
