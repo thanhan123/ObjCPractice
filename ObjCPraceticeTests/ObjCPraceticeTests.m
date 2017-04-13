@@ -29,6 +29,7 @@ NSInteger solutionMaximumAdjacentDistance(NSMutableArray *A);
 NSInteger solutionFindLeader(NSMutableArray *A);
 NSInteger solutionFindMaximumSlice(NSMutableArray *A);
 NSMutableArray * solutionFindMinimalAfterQuery(NSString *S, NSMutableArray *P, NSMutableArray *Q);
+NSInteger solutionStartPositionOfMinAverageSlice(NSMutableArray *A);
 @end
 
 @implementation ObjCPraceticeTests
@@ -38,9 +39,16 @@ NSMutableArray * solutionFindMinimalAfterQuery(NSString *S, NSMutableArray *P, N
     _vcToTest = [[ViewController alloc] init];
 }
 
+-(void)testSolutionStartPositionOfMinAverageSlice{
+    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(4), @(2), @(2), @(5), @(1), @(5), @(8)]];
+    NSInteger result = solutionStartPositionOfMinAverageSlice(A);
+    NSInteger expectedResult = 1;
+    XCTAssertEqual(expectedResult, result, @"testSolutionStartPositionOfMinAverageSlice is not passed");
+}
+
 -(void)testSolutionFindMinimalAfterQuery{
-    NSMutableArray *P = [[NSMutableArray alloc] initWithArray:@[@(2), @(5), @(0)]];
-    NSMutableArray *Q = [[NSMutableArray alloc] initWithArray:@[@(4), @(5), @(6)]];
+    NSMutableArray *P = [[NSMutableArray alloc] initWithArray:@[@(2), @(5), @(0), @(1)]];
+    NSMutableArray *Q = [[NSMutableArray alloc] initWithArray:@[@(4), @(5), @(6), @(4)]];
     
     NSMutableArray *result = solutionFindMinimalAfterQuery(@"CAGCCTA", P, Q);
 //    NSInteger expectedResult = 8;

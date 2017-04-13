@@ -21,28 +21,48 @@
 }
 // ---------------------------
 
+NSInteger solutionStartPositionOfMinAverageSlice(NSMutableArray *A) {
+    
+    
+    return  0;
+}
+
+// ---------------------------
+
 NSMutableArray * solutionFindMinimalAfterQuery(NSString *S, NSMutableArray *P, NSMutableArray *Q) {
     NSMutableArray *result = [NSMutableArray new];
     
-    NSMutableArray *SNumber = [NSMutableArray new];
+    NSMutableArray *genome = [[NSMutableArray alloc] initWithArray:@[[NSMutableArray new], [NSMutableArray new], [NSMutableArray new]]];
+    [genome[0] addObject:@(0)];
+    [genome[1] addObject:@(0)];
+    [genome[2] addObject:@(0)];
     for (NSInteger i = 0; i < S.length; i++) {
+        NSInteger a = 0, c = 0, g = 0; // 0 mean not existing at index i
         if ([S characterAtIndex:i] == 'A') {
-            [SNumber addObject:@(1)];
+            a = 1; // 1 mean existing at index i
         } else if ([S characterAtIndex:i] == 'C') {
-            [SNumber addObject:@(2)];
+            c = 1;
         } else if ([S characterAtIndex:i] == 'G') {
-            [SNumber addObject:@(3)];
-        } else {
-            [SNumber addObject:@(4)];
+            g = 1;
         }
+        
+        [genome[0] addObject:@([genome[0][i] integerValue] + a)];
+        [genome[1] addObject:@([genome[1][i] integerValue] + c)];
+        [genome[2] addObject:@([genome[2][i] integerValue] + g)];
     }
     
     for (NSInteger i = 0; i < P.count; i++) {
-        NSMutableArray *subArray = [[NSMutableArray alloc] initWithArray:[SNumber subarrayWithRange:NSMakeRange([P[i] integerValue], [Q[i] integerValue] - [P[i] integerValue] + 1 )]];
-        [subArray sortUsingComparator:^NSComparisonResult(NSNumber *  _Nonnull obj1, NSNumber *  _Nonnull obj2) {
-            return [obj1 compare:obj2];
-        }];
-        [result addObject:@([subArray[0] integerValue])];
+        NSInteger fromIndex = [P[i] integerValue];
+        NSInteger toIndex = [Q[i] integerValue] + 1;
+        if ([genome[0][toIndex] integerValue] - [genome[0][fromIndex] integerValue] > 0) { // use prefix sum to check existing value in specific range
+            [result addObject:@(1)];
+        } else if ([genome[1][toIndex] integerValue] - [genome[1][fromIndex] integerValue] > 0) {
+            [result addObject:@(2)];
+        } else if ([genome[2][toIndex] integerValue] - [genome[2][fromIndex] integerValue] > 0) {
+            [result addObject:@(3)];
+        } else {
+            [result addObject:@(4)];
+        }
     }
     
     return result;
