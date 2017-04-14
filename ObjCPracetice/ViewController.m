@@ -21,10 +21,34 @@
 }
 // ---------------------------
 
-NSInteger solutionStartPositionOfMinAverageSlice(NSMutableArray *A) {
+NSInteger solutionStartPositionOfMinAverageSlice(NSMutableArray *A) { // 100% correct and 100% performance
+    NSInteger lengthMinSum = 2;
+    NSInteger minSum = [A[0] integerValue] + [A[1] integerValue];
+    NSInteger startPosition = 0;
     
+    NSInteger observerLength = lengthMinSum, observerSum = minSum, observerStartPosition = startPosition;
     
-    return  0;
+    for (NSInteger i = 2; i < A.count; i++) {
+        // increase sum value and length
+        observerLength++;
+        observerSum += [A[i] integerValue];
+        
+        // check sum larger than sum of 2 lastest element
+        if (observerSum / (float)observerLength > ([A[i] integerValue] + [A[i - 1] integerValue]) / (float)2) {
+            observerLength = 2;
+            observerSum = [A[i] integerValue] + [A[i - 1] integerValue];
+            observerStartPosition = i - 1;
+        }
+        
+        // check min sum larger than sum
+        if (minSum / (float)lengthMinSum > observerSum / (float)observerLength) {
+            minSum = observerSum;
+            lengthMinSum = observerLength;
+            startPosition = observerStartPosition;
+        }
+    }
+    
+    return  startPosition;
 }
 
 // ---------------------------
@@ -360,8 +384,8 @@ BOOL isPalindrome(NSString *string) {
 
 // --------------------------
 
--(NSInteger)solutionPairsOfIntersectingDiscs:(NSArray*)numberArray{ // 100% correct and 25% performance
-    NSInteger pairsOfIntersectingDiscs = 0;
+-(NSInteger)solutionPairsOfIntersectingDiscs:(NSArray*)A{ // 100% correct and 25% performance
+//    NSInteger pairsOfIntersectingDiscs = 0;
 
 //    NSInteger i = 0;
 //    while (i < numberArray.count) {
@@ -375,44 +399,42 @@ BOOL isPalindrome(NSString *string) {
 //        i++;
 //    }
     
-    NSMutableArray *rangeArray = [NSMutableArray new];
-    for (NSInteger i = 0; i < numberArray.count; i++) {
-        [rangeArray addObject:@[@(i - [numberArray[i] integerValue]), @(i)]];
-        [rangeArray addObject:@[@(i + [numberArray[i] integerValue]), @(i)]];
-    }
-    NSMutableArray *rangeArraySorted = [rangeArray mutableCopy];
-    [rangeArraySorted sortUsingComparator:^NSComparisonResult(NSArray* obj1, NSArray* obj2) {
-        return [obj1[0] compare:obj2[0]];
-    }];
-    
-    NSLog(@"rangeArraySorted %@", rangeArraySorted);
-    
-    NSMutableArray *resultArray = [NSMutableArray new];
-    for (NSInteger i = 0; i < numberArray.count; i++) {
-        [resultArray addObject:[NSMutableArray new]];
+    NSInteger result = 0;
+    NSMutableArray *dps = [NSMutableArray new];
+    NSMutableArray *dpe = [NSMutableArray new];
+    for (NSInteger i = 0; i < A.count; i++) {
+        [dps addObject:@(0)];
+        [dpe addObject:@(0)];
     }
     
-    for (NSInteger i = 0; i < numberArray.count; i++) {
-        NSMutableArray *obj = rangeArray[i*2 + 1];
-        NSInteger index = [rangeArraySorted indexOfObject:@[@([obj[0] integerValue]),@([obj[1] integerValue])]];
-        for (NSInteger j = 0; j < index; j++) {
-            NSMutableArray *obj2 = rangeArraySorted[j];
-            if ([obj2[1] integerValue] > [obj[1] integerValue]) {
-                NSMutableArray *obj3 = resultArray[[obj[1] integerValue]];
-                if (![obj3 containsObject:@([obj2[1] integerValue])]) {
-                    [obj3 addObject:@([obj2[1] integerValue])];
-                    pairsOfIntersectingDiscs++;
-                }
-                
+    for (int i = 0; i < A.count; i++) {
+        // stores the number of discs that starts at i-a[i]
+        dps[MAX(0, i - [A[i] integerValue])] = @([dps[MAX(0, i - [A[i] integerValue])] integerValue] + 1);
+        if (i < A.count - [A[i] integerValue])
+            dpe[i + [A[i] integerValue]] = @([dpe[i + [A[i] integerValue]] integerValue] + 1); // stores the number of discs that ends at i+a[i]
+    }  // dpe[Math.min(a.length - 1, i + a[i])]++; should use this
+    
+    NSInteger t = 0;// t is the number of discs that have started and have not ended yet
+    
+    for (int i = 0; i < A.count; i++) {
+        if (dps[i] > 0) {// there are discs that start at this position
+            // discs that started before and the discs that started just now all intersect
+            result += t * [dps[i] integerValue];
+            // discs that started just now also intersect with each other
+            // the number of pairs is dps[i]!/(2! * dps[i]-2)!)
+            result += [dps[i] integerValue] * ([dps[i] integerValue] - 1) / 2;
+            if (result > 10000000) {
+                return -1;
             }
+            // we add the new discs to the set of discs that have started, but not ended.
+            t += [dps[i] integerValue];
         }
+        // At position i, there could be some discs that end,
+        // and thus, we must update t by removing the discs that have ended at i.
+        t -= [dpe[i] integerValue];
     }
     
-    if (pairsOfIntersectingDiscs > 10000000) {
-        return -1;
-    }
-    
-    return pairsOfIntersectingDiscs;
+    return result;
 }
 
 

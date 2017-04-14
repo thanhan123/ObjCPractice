@@ -40,9 +40,12 @@ NSInteger solutionStartPositionOfMinAverageSlice(NSMutableArray *A);
 }
 
 -(void)testSolutionStartPositionOfMinAverageSlice{
+//    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(10), @(10), @(-1), @(-2), @(2), @(4), @(-1), @(2), @(-1)]];
+//    NSInteger expectedResult = 2;
     NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(4), @(2), @(2), @(5), @(1), @(5), @(8)]];
-    NSInteger result = solutionStartPositionOfMinAverageSlice(A);
     NSInteger expectedResult = 1;
+    
+    NSInteger result = solutionStartPositionOfMinAverageSlice(A);
     XCTAssertEqual(expectedResult, result, @"testSolutionStartPositionOfMinAverageSlice is not passed");
 }
 
