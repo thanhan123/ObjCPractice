@@ -21,6 +21,27 @@
 }
 // ---------------------------
 
+NSInteger maximumBlocks(NSMutableArray *A){
+    NSMutableArray *peaksArray = [NSMutableArray new];
+    for (NSInteger i = 1; i < A.count - 1; i++) {
+        if ([A[i] integerValue] > [A[i - 1] integerValue] && [A[i] integerValue] > [A[i + 1] integerValue]) {
+            [peaksArray addObject:@(i)];
+        }
+    }
+    
+    if (peaksArray.count == 0) {
+        return 0;
+    }
+    
+    for (NSInteger i = peaksArray.count; i >= 1; i++) {
+        
+    }
+    
+    return 0;
+}
+
+// ---------------------------
+
 NSInteger solutionStartPositionOfMinAverageSlice(NSMutableArray *A) { // 100% correct and 100% performance
     NSInteger lengthMinSum = 2;
     NSInteger minSum = [A[0] integerValue] + [A[1] integerValue];
