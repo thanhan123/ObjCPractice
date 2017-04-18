@@ -30,6 +30,8 @@ NSInteger solutionFindLeader(NSMutableArray *A);
 NSInteger solutionFindMaximumSlice(NSMutableArray *A);
 NSMutableArray * solutionFindMinimalAfterQuery(NSString *S, NSMutableArray *P, NSMutableArray *Q);
 NSInteger solutionStartPositionOfMinAverageSlice(NSMutableArray *A);
+NSInteger maximumBlocks(NSMutableArray *A);
+NSInteger maximumFlags(NSMutableArray *A);
 @end
 
 @implementation ObjCPraceticeTests
@@ -37,6 +39,26 @@ NSInteger solutionStartPositionOfMinAverageSlice(NSMutableArray *A);
 - (void)setUp {
     [super setUp];
     _vcToTest = [[ViewController alloc] init];
+}
+
+-(void)testSolutionMaximumFlags{
+    //    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(10), @(10), @(-1), @(-2), @(2), @(4), @(-1), @(2), @(-1)]];
+    //    NSInteger expectedResult = 2;
+    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(1), @(5), @(3), @(4), @(3), @(4), @(1), @(2), @(3), @(4), @(6), @(2)]];
+    NSInteger expectedResult = 3;
+    
+    NSInteger result = maximumFlags(A);
+    XCTAssertEqual(expectedResult, result, @"testSolutionMaximumFlags is not passed");
+}
+
+-(void)testSolutionMaximumBlocks{
+    //    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(10), @(10), @(-1), @(-2), @(2), @(4), @(-1), @(2), @(-1)]];
+    //    NSInteger expectedResult = 2;
+    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(1), @(2), @(3), @(4), @(3), @(4), @(1), @(2), @(3), @(4), @(6), @(3), @(2)]];
+    NSInteger expectedResult = 2;
+    
+    NSInteger result = maximumBlocks(A);
+    XCTAssertEqual(expectedResult, result, @"testSolutionMaximumBlocks is not passed");
 }
 
 -(void)testSolutionStartPositionOfMinAverageSlice{

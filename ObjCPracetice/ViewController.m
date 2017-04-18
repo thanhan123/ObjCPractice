@@ -21,7 +21,48 @@
 }
 // ---------------------------
 
-NSInteger maximumBlocks(NSMutableArray *A){
+NSInteger maximumFlags(NSMutableArray *A){ // 75% correct and 28% performance
+    NSMutableArray *peaksArray = [NSMutableArray new];
+    
+    NSInteger maxFlag = 0, minFlag = INFINITY;
+    
+    for (NSInteger i = 1; i < A.count - 1; i++) {
+        if ([A[i] integerValue] > [A[i - 1] integerValue] && [A[i] integerValue] > [A[i + 1] integerValue]) {
+            [peaksArray addObject:@(i)];
+            if (peaksArray.count > 1) {
+                NSInteger distance = i - [peaksArray[peaksArray.count - 2] integerValue];
+                minFlag = MIN(minFlag, distance);
+            }
+        }
+    }
+    
+    if (peaksArray.count == 0) {
+        return 0;
+    } else if (peaksArray.count == 1) {
+        return 1;
+    }
+    
+    maxFlag = peaksArray.count;
+    minFlag = MIN(minFlag, peaksArray.count);
+    
+    if (minFlag == maxFlag) {
+        return minFlag;
+    } else if (minFlag < maxFlag) {
+        maxFlag--;
+    }
+    
+    for (NSInteger i = maxFlag; i > minFlag; i--) {
+        if (i*(i-1) <= [peaksArray[peaksArray.count - 1] integerValue] - [peaksArray[0] integerValue]) {
+            return i;
+        }
+    }
+    
+    return minFlag;
+}
+
+// ---------------------------
+
+NSInteger maximumBlocks(NSMutableArray *A){ // 83% correct and 100% performance
     NSMutableArray *peaksArray = [NSMutableArray new];
     for (NSInteger i = 1; i < A.count - 1; i++) {
         if ([A[i] integerValue] > [A[i - 1] integerValue] && [A[i] integerValue] > [A[i + 1] integerValue]) {
@@ -33,11 +74,43 @@ NSInteger maximumBlocks(NSMutableArray *A){
         return 0;
     }
     
-    for (NSInteger i = peaksArray.count; i >= 1; i++) {
-        
+    for (NSInteger i = peaksArray.count; i >= 1; i--) {
+        if (A.count % i < i - 1 && A.count % i > 0) {
+            continue;
+        }
+        NSInteger blockLength = A.count / i;
+        if (A.count % i > 0) {
+            blockLength++;
+        }
+        BOOL canDivided = YES;
+        NSMutableArray *peaksArrayCopy = [peaksArray mutableCopy];
+        for (NSInteger j = blockLength - 1; j < A.count; j+=blockLength) {
+            NSInteger startIndex = j - blockLength + 1;
+            if (A.count % i != 0 && j == A.count - 1) {
+                startIndex = A.count - blockLength + 1;
+            }
+            BOOL isContainedPeak = NO;
+            for (NSInteger k = 0; k < peaksArrayCopy.count; k++) {
+                if ([peaksArrayCopy[k] integerValue] >= startIndex && [peaksArrayCopy[k] integerValue] <= j) {
+                    isContainedPeak = YES;
+                    [peaksArrayCopy removeObjectsInRange:NSMakeRange(0, k + 1)];
+                    break;
+                }
+            }
+            if (isContainedPeak == NO) {
+                canDivided = NO;
+                break;
+            }
+            if (j + blockLength >= A.count && j != A.count - 1) {
+                j = A.count - 1 - blockLength;
+            }
+        }
+        if (canDivided == YES) {
+            return i;
+        }
     }
     
-    return 0;
+    return 1;
 }
 
 // ---------------------------
