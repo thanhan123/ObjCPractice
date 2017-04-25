@@ -21,7 +21,7 @@
 }
 // ---------------------------
 
-NSInteger maximumFlags(NSMutableArray *A){ // 75% correct and 28% performance
+NSInteger maximumFlags(NSMutableArray *A){ // 100% correct and 100% performance
     NSMutableArray *peaksArray = [NSMutableArray new];
     
     NSInteger maxFlag = 0, minFlag = INFINITY;
@@ -36,10 +36,8 @@ NSInteger maximumFlags(NSMutableArray *A){ // 75% correct and 28% performance
         }
     }
     
-    if (peaksArray.count == 0) {
-        return 0;
-    } else if (peaksArray.count == 1) {
-        return 1;
+    if (peaksArray.count <= 1) {
+        return peaksArray.count;
     }
     
     maxFlag = peaksArray.count;
@@ -53,7 +51,17 @@ NSInteger maximumFlags(NSMutableArray *A){ // 75% correct and 28% performance
     
     for (NSInteger i = maxFlag; i > minFlag; i--) {
         if (i*(i-1) <= [peaksArray[peaksArray.count - 1] integerValue] - [peaksArray[0] integerValue]) {
-            return i;
+            NSInteger numberOfFlag = i;
+            NSInteger markValue = [peaksArray[0] integerValue];
+            for (NSInteger j = 1; j < peaksArray.count; j++) {
+                if ([peaksArray[j] integerValue] - markValue >= i) {
+                    numberOfFlag--;
+                    markValue = [peaksArray[j] integerValue];
+                }
+            }
+            if (numberOfFlag <= 1) {
+                return i;
+            }
         }
     }
     
