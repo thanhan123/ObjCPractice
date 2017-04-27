@@ -24,54 +24,45 @@
 NSInteger numberOfK(NSMutableArray *A, NSMutableArray *B){ // 100% correct and 16% performance
     NSInteger count = 0;
     for (NSInteger i = 0; i < A.count; i++) {
-        NSInteger sumAI = multipleOfFactorizations([A[i] integerValue], primeArrayOfNumber([A[i] integerValue]));
-        NSInteger sumBI = multipleOfFactorizations([B[i] integerValue], primeArrayOfNumber([B[i] integerValue]));
-        if (sumAI == sumBI) {
+        if (hasSamePrimeArray([A[i] integerValue], [B[i] integerValue])) {
             count++;
         }
     }
     return count;
 }
     
-NSInteger multipleOfFactorizations(NSInteger x, NSMutableArray *F){
-    NSMutableArray *factorizeArray = [NSMutableArray new];
-    NSInteger multi = 1;
-    while ([F[x] integerValue] > 0) {
-        if (![factorizeArray containsObject:@([F[x] integerValue])]) {
-            multi*=[F[x] integerValue];
-            [factorizeArray addObject:@([F[x] integerValue])];
-        }
-        x/=[F[x] integerValue];
+NSInteger gcd(NSInteger a, NSInteger b){
+    if (a % b == 0) {
+        return b;
     }
-    if (![factorizeArray containsObject:@(x)]) {
-        multi*=x;
-    }
-    return multi;
+    return gcd(b, a % b);
 }
-    
-NSMutableArray * primeArrayOfNumber(NSInteger n){
-    NSMutableArray *F = [NSMutableArray new];
-    for (NSInteger i = 0; i < n + 1; i++) {
-        [F addObject:@(0)];
+
+BOOL hasSamePrimeArray(NSInteger a, NSInteger b){
+    NSInteger gcdValue = gcd(a, b);
+    NSInteger gcdA = 0, gcdB = 0;
+    while (a != 1) {
+        gcdA = gcd(a, gcdValue);
+        if (gcdA == 1) {
+            break;
+        }
+        a /= gcdA;
     }
-    
-    NSInteger i = 2;
-    while (i*i <= n) {
-        if ([F[i] integerValue] == 0) {
-            NSInteger k = i*i;
-            while (k <= n) {
-                if ([F[k] integerValue] == 0) {
-                    F[k] = @(i);
-                }
-                k+=i;
+    if (a != 1) {
+        return NO;
+    }
+    if (b != 1) {
+        while (b != 1) {
+            gcdB = gcd(b, gcdValue);
+            if (gcdB == 1) {
+                break;
             }
+            b /= gcdB;
         }
-        i++;
     }
-    
-    return F;
+    return b==1;
 }
-    
+
 // ---------------------------
 
 NSInteger maximumFlags(NSMutableArray *A){ // 100% correct and 100% performance
