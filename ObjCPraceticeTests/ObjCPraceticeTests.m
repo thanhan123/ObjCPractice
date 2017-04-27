@@ -32,6 +32,8 @@ NSMutableArray * solutionFindMinimalAfterQuery(NSString *S, NSMutableArray *P, N
 NSInteger solutionStartPositionOfMinAverageSlice(NSMutableArray *A);
 NSInteger maximumBlocks(NSMutableArray *A);
 NSInteger maximumFlags(NSMutableArray *A);
+NSInteger numberOfK(NSMutableArray *A, NSMutableArray *B);
+
 @end
 
 @implementation ObjCPraceticeTests
@@ -39,6 +41,15 @@ NSInteger maximumFlags(NSMutableArray *A);
 - (void)setUp {
     [super setUp];
     _vcToTest = [[ViewController alloc] init];
+}
+    
+-(void)testSolutionNumberOfK{
+    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(15), @(10), @(3)]];
+    NSMutableArray *B = [[NSMutableArray alloc] initWithArray:@[@(75), @(30), @(5)]];
+    NSInteger expectedResult = 1;
+    
+    NSInteger result = numberOfK(A, B);
+    XCTAssertEqual(expectedResult, result, @"testSolutionNumberOfK is not passed");
 }
 
 -(void)testSolutionMaximumFlags{

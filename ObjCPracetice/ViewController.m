@@ -20,6 +20,59 @@
 //    [self solution];
 }
 // ---------------------------
+    
+NSInteger numberOfK(NSMutableArray *A, NSMutableArray *B){ // 100% correct and 16% performance
+    NSInteger count = 0;
+    for (NSInteger i = 0; i < A.count; i++) {
+        NSInteger sumAI = multipleOfFactorizations([A[i] integerValue], primeArrayOfNumber([A[i] integerValue]));
+        NSInteger sumBI = multipleOfFactorizations([B[i] integerValue], primeArrayOfNumber([B[i] integerValue]));
+        if (sumAI == sumBI) {
+            count++;
+        }
+    }
+    return count;
+}
+    
+NSInteger multipleOfFactorizations(NSInteger x, NSMutableArray *F){
+    NSMutableArray *factorizeArray = [NSMutableArray new];
+    NSInteger multi = 1;
+    while ([F[x] integerValue] > 0) {
+        if (![factorizeArray containsObject:@([F[x] integerValue])]) {
+            multi*=[F[x] integerValue];
+            [factorizeArray addObject:@([F[x] integerValue])];
+        }
+        x/=[F[x] integerValue];
+    }
+    if (![factorizeArray containsObject:@(x)]) {
+        multi*=x;
+    }
+    return multi;
+}
+    
+NSMutableArray * primeArrayOfNumber(NSInteger n){
+    NSMutableArray *F = [NSMutableArray new];
+    for (NSInteger i = 0; i < n + 1; i++) {
+        [F addObject:@(0)];
+    }
+    
+    NSInteger i = 2;
+    while (i*i <= n) {
+        if ([F[i] integerValue] == 0) {
+            NSInteger k = i*i;
+            while (k <= n) {
+                if ([F[k] integerValue] == 0) {
+                    F[k] = @(i);
+                }
+                k+=i;
+            }
+        }
+        i++;
+    }
+    
+    return F;
+}
+    
+// ---------------------------
 
 NSInteger maximumFlags(NSMutableArray *A){ // 100% correct and 100% performance
     NSMutableArray *peaksArray = [NSMutableArray new];
