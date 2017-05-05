@@ -16,12 +16,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    [self solution];
 }
 // ---------------------------
+
+NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B){ // 75% correct and 0% performance
+    NSMutableArray *result = [NSMutableArray new];
     
-NSInteger numberOfK(NSMutableArray *A, NSMutableArray *B){ // 100% correct and 16% performance
+    for (NSInteger i = 0; i < A.count; i++) {
+        [result addObject:@(fibonaciNumber([A[i] integerValue] + 1) % (NSInteger)pow(2, [B[i] integerValue]))];
+    }
+    
+    return result;
+}
+
+NSInteger fibonaciNumber(NSInteger n){
+    NSInteger result = 1;
+    result = (pow((1 + sqrt(5)) / 2, n) - pow((1 - sqrt(5)) / 2, n)) / sqrt(5);
+    return result;
+}
+
+// ---------------------------
+    
+NSInteger numberOfK(NSMutableArray *A, NSMutableArray *B){ // 100% correct and 100% performance
     NSInteger count = 0;
     for (NSInteger i = 0; i < A.count; i++) {
         if (hasSamePrimeArray([A[i] integerValue], [B[i] integerValue])) {

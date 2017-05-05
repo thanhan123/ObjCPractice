@@ -33,6 +33,7 @@ NSInteger solutionStartPositionOfMinAverageSlice(NSMutableArray *A);
 NSInteger maximumBlocks(NSMutableArray *A);
 NSInteger maximumFlags(NSMutableArray *A);
 NSInteger numberOfK(NSMutableArray *A, NSMutableArray *B);
+NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B);
 
 @end
 
@@ -41,6 +42,15 @@ NSInteger numberOfK(NSMutableArray *A, NSMutableArray *B);
 - (void)setUp {
     [super setUp];
     _vcToTest = [[ViewController alloc] init];
+}
+
+-(void)testSolutionNumberOfDiffWay{
+    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(4), @(4), @(5), @(5), @(1)]];
+    NSMutableArray *B = [[NSMutableArray alloc] initWithArray:@[@(3), @(2), @(4), @(3), @(1)]];
+//    NSInteger expectedResult = 1;
+    
+    NSMutableArray * result = numberOfDiffWay(A, B);
+//    XCTAssertEqual(expectedResult, result, @"testSolutionNumberOfK is not passed");
 }
     
 -(void)testSolutionNumberOfK{
