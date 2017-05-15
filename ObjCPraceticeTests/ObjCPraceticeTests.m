@@ -34,6 +34,7 @@ NSInteger maximumBlocks(NSMutableArray *A);
 NSInteger maximumFlags(NSMutableArray *A);
 NSInteger numberOfK(NSMutableArray *A, NSMutableArray *B);
 NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B);
+NSInteger fibFrog(NSMutableArray *A);
 
 @end
 
@@ -42,6 +43,15 @@ NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B);
 - (void)setUp {
     [super setUp];
     _vcToTest = [[ViewController alloc] init];
+}
+
+-(void)testSolutionFibFrog{
+//    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(0), @(0), @(0), @(1), @(1), @(0), @(1), @(0), @(0), @(0), @(0)]];
+    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(0), @(0), @(0), @(1), @(0)]];
+    NSInteger expectedResult = 3;
+    
+    NSInteger result = fibFrog(A);
+    XCTAssertEqual(expectedResult, result, @"testSolutionFibFrog is not passed");
 }
 
 -(void)testSolutionNumberOfDiffWay{

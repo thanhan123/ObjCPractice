@@ -19,7 +19,67 @@
 }
 // ---------------------------
 
-NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B){ // 75% correct and 0% performance
+NSInteger fibFrog(NSMutableArray *A){
+    if (A.count <= 2) {
+        return 1;
+    }
+    
+    NSMutableArray *leaves = [NSMutableArray new];
+    for (NSInteger i = 0; i < A.count; i++) {
+        if ([A[i] integerValue] == 1) {
+            [leaves addObject:@(i)];
+        }
+    }
+    [leaves addObject:@(A.count)];
+    
+    NSMutableArray *fibArray = [NSMutableArray new];
+    [fibArray addObject:@(0)];
+    [fibArray addObject:@(1)];
+    while ([fibArray[fibArray.count - 1] integerValue] <= A.count + 1) {
+        [fibArray addObject:@([fibArray[fibArray.count - 2] integerValue] + [fibArray[fibArray.count - 1] integerValue])];
+    }
+    [fibArray removeLastObject];
+    
+    NSInteger step = 0;
+    
+    NSInteger markIndex = -1;
+    
+    if ([fibArray containsObject:@(A.count - markIndex)]) {
+        return 1;
+    }
+    
+    if (leaves.count == 1) {
+        return -1;
+    }
+    
+    while (YES) {
+        BOOL cantMoveOn = NO;
+        for (NSInteger i = leaves.count - 1; [leaves[i] integerValue] >= markIndex; i--) {
+            if ([leaves[i] integerValue] == markIndex) {
+                cantMoveOn = YES;
+                break;
+            }
+            if ([fibArray containsObject:@([leaves[i] integerValue] - markIndex)]) {
+                markIndex = [leaves[i] integerValue];
+                step++;
+                if (markIndex == A.count) {
+                    return step;
+                }
+                break;
+            }
+        }
+        if (cantMoveOn) {
+            step = -1;
+            break;
+        }
+    }
+    
+    return step;
+}
+
+// ---------------------------
+
+NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B){ // 100% correct and 100% performance
     NSInteger max = [A[0] integerValue];
     for (NSInteger i = 1; i < A.count; i++) {
         if (max < [A[i] integerValue]) {
@@ -27,25 +87,21 @@ NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B){ // 75% c
         }
     }
     
-    NSMutableArray *fibArray = [NSMutableArray new];
+    max++; // get max value of the array
+    
+    NSMutableArray *fibArray = [NSMutableArray new]; // create only one fibonacy array
     [fibArray addObject: @(0)];
     [fibArray addObject: @(1)];
-    for (NSInteger i = 2; i < max; i++) {
-        [fibArray addObject:@(fibonaciNumber(i) % (NSInteger)pow(2, 30))];
+    for (NSInteger i = 2; i <= max; i++) {
+        [fibArray addObject:@(([fibArray[i - 2] integerValue] + [fibArray[i - 1] integerValue]) % (NSInteger)pow(2, 30))]; // prevent overflow number
     }
     
     NSMutableArray *result = [NSMutableArray new];
     
     for (NSInteger i = 0; i < A.count; i++) {
-        [result addObject:@([fibArray[[A[i] integerValue] - 1] integerValue] % (NSInteger)pow(2, [B[i] integerValue]))];
+        [result addObject:@([fibArray[[A[i] integerValue] + 1] integerValue] % (NSInteger)pow(2, [B[i] integerValue]))];
     }
     
-    return result;
-}
-
-NSInteger fibonaciNumber(NSInteger n){
-    NSInteger result = 1;
-    result = (pow((1 + sqrt(5)) / 2, n) - pow((1 - sqrt(5)) / 2, n)) / sqrt(5);
     return result;
 }
 
