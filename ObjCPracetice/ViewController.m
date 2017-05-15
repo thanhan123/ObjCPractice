@@ -20,10 +20,24 @@
 // ---------------------------
 
 NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B){ // 75% correct and 0% performance
+    NSInteger max = [A[0] integerValue];
+    for (NSInteger i = 1; i < A.count; i++) {
+        if (max < [A[i] integerValue]) {
+            max = [A[i] integerValue];
+        }
+    }
+    
+    NSMutableArray *fibArray = [NSMutableArray new];
+    [fibArray addObject: @(0)];
+    [fibArray addObject: @(1)];
+    for (NSInteger i = 2; i < max; i++) {
+        [fibArray addObject:@(fibonaciNumber(i) % (NSInteger)pow(2, 30))];
+    }
+    
     NSMutableArray *result = [NSMutableArray new];
     
     for (NSInteger i = 0; i < A.count; i++) {
-        [result addObject:@(fibonaciNumber([A[i] integerValue] + 1) % (NSInteger)pow(2, [B[i] integerValue]))];
+        [result addObject:@([fibArray[[A[i] integerValue] - 1] integerValue] % (NSInteger)pow(2, [B[i] integerValue]))];
     }
     
     return result;
