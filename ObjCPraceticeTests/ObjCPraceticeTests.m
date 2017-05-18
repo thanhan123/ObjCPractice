@@ -46,8 +46,7 @@ NSInteger fibFrog(NSMutableArray *A);
 }
 
 -(void)testSolutionFibFrog{
-//    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(0), @(0), @(0), @(1), @(1), @(0), @(1), @(0), @(0), @(0), @(0)]];
-    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(0), @(0), @(0), @(1), @(0)]];
+    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(0), @(0), @(0), @(1), @(1), @(0), @(1), @(0), @(0), @(0), @(0)]];
     NSInteger expectedResult = 3;
     
     NSInteger result = fibFrog(A);

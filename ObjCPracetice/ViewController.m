@@ -20,61 +20,41 @@
 // ---------------------------
 
 NSInteger fibFrog(NSMutableArray *A){
-    if (A.count <= 2) {
-        return 1;
-    }
-    
-    NSMutableArray *leaves = [NSMutableArray new];
-    for (NSInteger i = 0; i < A.count; i++) {
-        if ([A[i] integerValue] == 1) {
-            [leaves addObject:@(i)];
-        }
-    }
-    [leaves addObject:@(A.count)];
-    
     NSMutableArray *fibArray = [NSMutableArray new];
     [fibArray addObject:@(0)];
     [fibArray addObject:@(1)];
-    while ([fibArray[fibArray.count - 1] integerValue] <= A.count + 1) {
+    while ([fibArray[fibArray.count - 1] integerValue] <= A.count) {
         [fibArray addObject:@([fibArray[fibArray.count - 2] integerValue] + [fibArray[fibArray.count - 1] integerValue])];
     }
-    [fibArray removeLastObject];
-    
-    NSInteger step = 0;
-    
-    NSInteger markIndex = -1;
-    
-    if ([fibArray containsObject:@(A.count - markIndex)]) {
-        return 1;
+    for (NSInteger i = 0; i <= fibArray.count / 2; i++) {
+        NSNumber *tmp = fibArray[i];
+        fibArray[i] = @([fibArray[fibArray.count - 1 - i] integerValue]);
+        fibArray[fibArray.count - 1 - i] = @([tmp integerValue]);
     }
     
-    if (leaves.count == 1) {
-        return -1;
-    }
+    NSInteger index = 0;
+    NSInteger N = A.count;
+    NSMutableArray *queue = [NSMutableArray new];
+    [queue addObject:@[@(-1), @(0)]]; // List of acceptable fibonacci position leave and number of step
     
     while (YES) {
-        BOOL cantMoveOn = NO;
-        for (NSInteger i = leaves.count - 1; [leaves[i] integerValue] >= markIndex; i--) {
-            if ([leaves[i] integerValue] == markIndex) {
-                cantMoveOn = YES;
-                break;
-            }
-            if ([fibArray containsObject:@([leaves[i] integerValue] - markIndex)]) {
-                markIndex = [leaves[i] integerValue];
-                step++;
-                if (markIndex == A.count) {
-                    return step;
-                }
-                break;
-            }
+        if (index == queue.count) {
+            return -1;
         }
-        if (cantMoveOn) {
-            step = -1;
-            break;
+        NSArray *current = queue[index]; // Get current fibonacci position leave and current step
+        for (NSNumber *k in fibArray) { // Check if fibonacci number is a valid move (current position + move == postion of leave)
+            NSInteger next = [k integerValue] + [current[0] integerValue];
+            if (next == N) { // if current leave has a fibonacci move whose sum == N, return result
+                return [current[1] integerValue] + 1;
+            }
+            if (next > N || next < 0 || [A[next] integerValue] == 0) {
+                continue;
+            }
+            [queue addObject:@[@(next), @([current[1] integerValue] + 1)]]; // save fibonacci position leave and number of step
+            A[next] = @(0); // remove current leave so we won't check it for the next time
         }
+        index++;
     }
-    
-    return step;
 }
 
 // ---------------------------
