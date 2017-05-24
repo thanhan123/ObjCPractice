@@ -35,6 +35,7 @@ NSInteger maximumFlags(NSMutableArray *A);
 NSInteger numberOfK(NSMutableArray *A, NSMutableArray *B);
 NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B);
 NSInteger fibFrog(NSMutableArray *A);
+NSInteger nailingPlanks(NSMutableArray *A, NSMutableArray *B, NSMutableArray *C);
 
 @end
 
@@ -43,6 +44,16 @@ NSInteger fibFrog(NSMutableArray *A);
 - (void)setUp {
     [super setUp];
     _vcToTest = [[ViewController alloc] init];
+}
+
+-(void)testSolutionNailingPlanks{
+    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(1), @(4), @(5), @(8)]];
+    NSMutableArray *B = [[NSMutableArray alloc] initWithArray:@[@(4), @(5), @(9), @(10)]];
+    NSMutableArray *C = [[NSMutableArray alloc] initWithArray:@[@(4), @(6), @(7), @(9), @(2)]];
+    NSInteger expectedResult = 4;
+    
+    NSInteger result = nailingPlanks(A, B, C);
+    XCTAssertEqual(expectedResult, result, @"testSolutionNailingPlanks is not passed");
 }
 
 -(void)testSolutionFibFrog{

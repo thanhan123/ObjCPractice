@@ -19,6 +19,46 @@
 }
 // ---------------------------
 
+NSInteger nailingPlanks(NSMutableArray *A, NSMutableArray *B, NSMutableArray *C) {
+    NSInteger count = 0;
+    NSMutableArray *notNailed = [NSMutableArray new];
+    [notNailed addObject:@(0)];
+    [notNailed addObject:@(A.count - 1)];
+    
+    for (NSInteger i = 0; i < C.count; i++) {
+        NSInteger sumOfNotNailed = notNailed.count/2;
+        for (NSInteger k = 0; k < sumOfNotNailed; k+=2) {
+            
+            for (NSInteger j = [notNailed[k] integerValue]; j <= [notNailed[k+1] integerValue]; j++) {
+                if ([C[i] integerValue] >= [A[j] integerValue] && [C[i] integerValue] <= [B[j] integerValue]) {
+                    count++;
+                    if (notNailed.count % 2 != 0) {
+                        [notNailed addObject:@(j)];
+                    }
+                } else {
+                    if (notNailed.count % 2 == 0) {
+                        [notNailed addObject:@(j)];
+                    }
+                }
+            }
+            if (count == A.count) {
+                return i + 1;
+            }
+            if (notNailed.count % 2 != 0) {
+                [notNailed addObject:@(A.count - 1)];
+            }
+            
+        }
+        for (NSInteger y = 0; y < sumOfNotNailed * 2; y++) {
+            [notNailed removeObjectAtIndex:0];
+        }
+    }
+    
+    return -1;
+}
+
+// ---------------------------
+
 NSInteger fibFrog(NSMutableArray *A){
     NSMutableArray *fibArray = [NSMutableArray new];
     [fibArray addObject:@(0)];
