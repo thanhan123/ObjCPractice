@@ -686,7 +686,76 @@ BOOL isPalindrome(NSString *string) {
         t -= [dpe[i] integerValue];
     }
     
+//    NSInteger result = 0;
+//    
+//    NSMutableArray *endPointPostion = [NSMutableArray new];
+//    for (NSInteger i = 0; i < A.count; i++) {
+//        [endPointPostion addObject:@[@(i - [A[i] integerValue]), @(i)]];
+//        [endPointPostion addObject:@[@(i + [A[i] integerValue]), @(i)]];
+//    }
+//    
+//    [endPointPostion sortUsingComparator:^NSComparisonResult(NSArray*  _Nonnull obj1, NSArray*  _Nonnull obj2) {
+//        NSNumber *number = obj1[0];
+//        NSNumber *number2 = obj2[0];
+//        
+//        return [number compare:number2];
+//    }];
+//    
+//    for (NSInteger i = 0; i < A.count; i++) {
+//        NSInteger startIndex = binarySearch(endPointPostion, i - [A[i] integerValue]);
+//        NSInteger endIndex = binarySearch(endPointPostion, i + [A[i] integerValue]);
+//        
+//        NSMutableArray *checkExistElementArray = [NSMutableArray new];
+//        
+//        if (startIndex > 0) {
+//            NSInteger checkingSameStartValue = [endPointPostion[startIndex - 1][1] integerValue];
+//            if (checkingSameStartValue == i - [A[i] integerValue]) {
+//                result += validAddingInsectingDisc(checkExistElementArray, checkingSameStartValue, i) ? 1 : 0;
+//            }
+//        }
+//
+//        if (endIndex < A.count - 1) {
+//            NSInteger checkingSameEndValue = [endPointPostion[endIndex + 1][1] integerValue];
+//            if (checkingSameEndValue == i + [A[i] integerValue]) {
+//                result += validAddingInsectingDisc(checkExistElementArray, checkingSameEndValue, i) ? 1 : 0;
+//            }
+//        }
+//        
+//        for (NSInteger j = startIndex+1; j < endIndex; j++) {
+//            NSInteger indexOfDisc = [endPointPostion[j][1] integerValue];
+//            result += validAddingInsectingDisc(checkExistElementArray, indexOfDisc, i) ? 1 : 0;
+//        }
+//    }
+    
     return result;
+}
+
+BOOL validAddingInsectingDisc(NSMutableArray *existingArray, NSInteger valueToAdd, NSInteger valueToCheck){
+    if (![existingArray containsObject:@(valueToAdd)] && valueToAdd > valueToCheck) {
+        [existingArray addObject:@(valueToAdd)];
+        return YES;
+    }
+    
+    return NO;
+}
+
+NSInteger binarySearch(NSMutableArray *array, NSInteger value){
+    NSInteger beg = 0;
+    NSInteger end = array.count - 1;
+    NSInteger mid = 0;
+    
+    while (beg <= end) {
+        mid = beg + (end - beg)/2;
+        if ([array[mid][0] integerValue] < value) {
+            beg = mid + 1;
+        } else if ([array[mid][0] integerValue] == value) {
+            return mid;
+        } else {
+            end = mid - 1;
+        }
+    }
+    
+    return -1;
 }
 
 
