@@ -36,6 +36,7 @@ NSInteger numberOfK(NSMutableArray *A, NSMutableArray *B);
 NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B);
 NSInteger fibFrog(NSMutableArray *A);
 NSInteger nailingPlanks(NSMutableArray *A, NSMutableArray *B, NSMutableArray *C);
+NSInteger minMaxDivision(int K, int M, NSMutableArray *A);
 
 @end
 
@@ -44,6 +45,13 @@ NSInteger nailingPlanks(NSMutableArray *A, NSMutableArray *B, NSMutableArray *C)
 - (void)setUp {
     [super setUp];
     _vcToTest = [[ViewController alloc] init];
+}
+
+-(void)testMaxMinDivision{
+    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(2), @(1), @(5), @(1), @(2), @(2), @(2)]];
+    NSInteger expectedResult = 6;
+    NSInteger result = minMaxDivision(3, 5, A);
+    XCTAssertEqual(expectedResult, result, @"testMaxMinDivision is not passed");
 }
 
 -(void)testSolutionNailingPlanks{

@@ -19,6 +19,52 @@
 }
 // ---------------------------
 
+NSInteger minMaxDivision(int K, int M, NSMutableArray *A) {
+    NSInteger minLargestSum = -1;
+    NSInteger maxLargestSum = 0;
+    for (NSInteger i = 0; i < A.count; i++) {
+        minLargestSum = MAX(minLargestSum, [A[i] integerValue]);
+        maxLargestSum += [A[i] integerValue];
+    }
+    
+    if (K >= A.count) {
+        return minLargestSum;
+    }
+    
+    if (K == 1) {
+        return maxLargestSum;
+    }
+    
+    NSInteger result = 0;
+    
+    while (minLargestSum <= maxLargestSum) { // search actual min lagrest sum by binary search
+        NSInteger largestSum = (minLargestSum + maxLargestSum) / 2;
+        // check if array A can be divided by K block with max value is lager middle value 'largestSum'
+        NSInteger kCounter = 1;
+        NSInteger sum = 0;
+        for(NSNumber *value in A){
+            sum+=[value integerValue];
+            if (sum > largestSum) {
+                kCounter++;
+                sum = [value integerValue];
+                if (kCounter > K) {
+                    break;
+                }
+            }
+        }
+        if (kCounter <= K) { // this mean middle value 'largestSum' is too lagre to divide by K blocks
+            maxLargestSum = largestSum - 1;
+            result = largestSum;
+        } else { // this mean middle value 'largestSum' is too small to divide by K blocks
+            minLargestSum = largestSum + 1;
+        }
+    }
+    
+    return result;
+}
+
+// ---------------------------
+
 NSInteger nailingPlanks(NSMutableArray *A, NSMutableArray *B, NSMutableArray *C) {
     NSInteger count = 0;
     NSMutableArray *notNailed = [NSMutableArray new];
