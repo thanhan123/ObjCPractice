@@ -19,6 +19,22 @@
 }
 // ---------------------------
 
+NSInteger minAbsSumOfTwo(NSMutableArray *A) {
+    [A sortUsingComparator:^NSComparisonResult(NSNumber *obj1, NSNumber *obj2) {
+        return labs([obj1 integerValue]) > labs([obj2 integerValue]); // sort array by abs value, abs small value is at back -> abs large value is at front
+    }];
+    
+    NSInteger result = labs(2 * [A[0] integerValue]); // this is smallest value among sums of value with same index
+    
+    for (NSInteger i = 1; i < A.count; i++) {
+        result = MIN(result, labs([A[i] integerValue] + [A[i - 1] integerValue])); // check wether there is any sum of diff index is samller than min result
+    }
+    
+    return result;
+}
+
+// ---------------------------
+
 NSInteger minMaxDivision(int K, int M, NSMutableArray *A) {
     NSInteger minLargestSum = -1;
     NSInteger maxLargestSum = 0;
@@ -39,7 +55,7 @@ NSInteger minMaxDivision(int K, int M, NSMutableArray *A) {
     
     while (minLargestSum <= maxLargestSum) { // search actual min lagrest sum by binary search
         NSInteger largestSum = (minLargestSum + maxLargestSum) / 2;
-        // check if array A can be divided by K block with max value is lager middle value 'largestSum'
+        // check if array A can be divided by K blocks with max value is lager middle value 'largestSum'
         NSInteger kCounter = 1;
         NSInteger sum = 0;
         for(NSNumber *value in A){

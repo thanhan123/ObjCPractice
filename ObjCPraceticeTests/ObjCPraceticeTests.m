@@ -37,6 +37,7 @@ NSMutableArray * numberOfDiffWay(NSMutableArray *A, NSMutableArray *B);
 NSInteger fibFrog(NSMutableArray *A);
 NSInteger nailingPlanks(NSMutableArray *A, NSMutableArray *B, NSMutableArray *C);
 NSInteger minMaxDivision(int K, int M, NSMutableArray *A);
+NSInteger minAbsSumOfTwo(NSMutableArray *A);
 
 @end
 
@@ -45,6 +46,13 @@ NSInteger minMaxDivision(int K, int M, NSMutableArray *A);
 - (void)setUp {
     [super setUp];
     _vcToTest = [[ViewController alloc] init];
+}
+
+-(void)testMinAbsSumOfTwo{
+    NSMutableArray *A = [[NSMutableArray alloc] initWithArray:@[@(-8), @(4), @(5), @(-10), @(3)]];
+    NSInteger expectedResult = 3;
+    NSInteger result = minAbsSumOfTwo(A);
+    XCTAssertEqual(expectedResult, result, @"testMinAbsSumOfTwo is not passed");
 }
 
 -(void)testMaxMinDivision{
